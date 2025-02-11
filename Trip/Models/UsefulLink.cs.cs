@@ -9,10 +9,10 @@ namespace Trip.Models
         public int Id { get; set; }
 
         [Required]
-        public int TripId { get; set; }
+        public int TravelId { get; set; }
 
-        [ForeignKey("TripId")]
-        public Trip Trip { get; set; }
+        [ForeignKey("TravelId")]
+        public Travel Travel { get; set; }
 
         [Required]
         [MaxLength(255)]

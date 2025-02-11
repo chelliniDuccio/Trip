@@ -2,7 +2,7 @@
 
 namespace Trip.Models
 {
-    public class Trip
+    public class Travel
     {
         [Key]
         public int Id { get; set; }

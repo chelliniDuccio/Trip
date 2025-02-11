@@ -3,16 +3,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Trip.Models
 {
-    public class TripParticipant
+    public class TravelParticipant
     {
         [Key]
         public int Id { get; set; }
 
         [Required]
-        public int TripId { get; set; }
+        public int TravelId { get; set; }
 
-        [ForeignKey("TripId")]
-        public Trip Trip { get; set; }
+        [ForeignKey("TravelId")]
+        public Travel Travel { get; set; }
 
         [Required]
         public int UserId { get; set; }
