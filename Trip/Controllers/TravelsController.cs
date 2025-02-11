@@ -6,68 +6,69 @@ namespace Trip.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class TravelsController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        public UsersController(AppDbContext context)
+        public TravelsController(AppDbContext context)
         {
             _context = context;
         }
 
+
         [HttpGet]
         [EnableQuery] // Abilita OData su questa chiamata
-        public ActionResult<IQueryable<User>> GetUsers()
+        public ActionResult<IQueryable<Travel>> GetTravels()
         {
-            return Ok(_context.Users);
+            return Ok(_context.Travels);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<User> GetUser(int id)
+        public ActionResult<Travel> GetTravel(int id)
         {
-            var user = _context.Users.Find(id);
+            var Travel = _context.Travels.Find(id);
 
-            if (user == null)
+            if (Travel == null)
             {
                 return NotFound();
             }
 
-            return user;
+            return Travel;
         }
 
         [HttpPost]
-        public ActionResult<User> PostUser(User user)
+        public ActionResult<Travel> PostTravel(Travel Travel)
         {
-            _context.Users.Add(user);
+            _context.Travels.Add(Travel);
             _context.SaveChanges();
 
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            return CreatedAtAction("GetTravel", new { id = Travel.Id }, Travel);
         }
 
         [HttpPut("{id}")]
-        public IActionResult PutUser(int id, User user)
+        public IActionResult PutTravel(int id, Travel Travel)
         {
-            if (id != user.Id)
+            if (id != Travel.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _context.Entry(Travel).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             _context.SaveChanges();
 
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public IActionResult DeleteUser(int id)
+        public IActionResult DeleteTravel(int id)
         {
-            var user = _context.Users.Find(id);
-            if (user == null)
+            var Travel = _context.Travels.Find(id);
+            if (Travel == null)
             {
                 return NotFound();
             }
 
-            _context.Users.Remove(user);
+            _context.Travels.Remove(Travel);
             _context.SaveChanges();
 
             return NoContent();
