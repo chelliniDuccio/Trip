@@ -1,0 +1,34 @@
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace Trip.Models
+{
+    public class SharedFile
+    {
+        [Key]
+        public int Id { get; set; }
+
+        [Required]
+        public int TripId { get; set; }
+
+        [ForeignKey("TripId")]
+        public Trip Trip { get; set; }
+
+        [Required]
+        public int UploadedBy { get; set; }
+
+        [ForeignKey("UploadedBy")]
+        public User User { get; set; }
+
+        [Required]
+        [MaxLength(255)]
+        public string FileName { get; set; }
+
+        [Required]
+        [MaxLength(1000)]
+        public string FileURL { get; set; }
+
+        [Required]
+        public DateTime UploadedAt { get; set; }
+    }
+}
