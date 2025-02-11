@@ -16,14 +16,12 @@ namespace Trip.Controllers
             _context = context;
         }
 
-        // GET: api/Users
         [HttpGet]
         public ActionResult<IEnumerable<User>> GetUsers()
         {
             return _context.Users.ToList();
         }
 
-        // GET: api/Users/5
         [HttpGet("{id}")]
         public ActionResult<User> GetUser(int id)
         {
@@ -37,7 +35,6 @@ namespace Trip.Controllers
             return user;
         }
 
-        // POST: api/Users
         [HttpPost]
         public ActionResult<User> PostUser(User user)
         {
@@ -47,7 +44,6 @@ namespace Trip.Controllers
             return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 
-        // PUT: api/Users/5
         [HttpPut("{id}")]
         public IActionResult PutUser(int id, User user)
         {
@@ -62,7 +58,6 @@ namespace Trip.Controllers
             return NoContent();
         }
 
-        // DELETE: api/Users/5
         [HttpDelete("{id}")]
         public IActionResult DeleteUser(int id)
         {
