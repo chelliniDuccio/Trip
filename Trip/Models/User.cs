@@ -2,11 +2,8 @@
 
 namespace Trip.Models
 {
-    public class User
+    public class User : BaseModel
     {
-        [Key]
-        public int Id { get; set; }
-
         [Required]
         [MaxLength(255)]
         public string Name { get; set; }

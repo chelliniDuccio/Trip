@@ -3,11 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Trip.Models
 {
-    public class UsefulLink
+    public class UsefulLink : BaseModel
     {
-        [Key]
-        public int Id { get; set; }
-
         [Required]
         public int TravelId { get; set; }
 

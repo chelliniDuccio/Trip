@@ -3,11 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Trip.Models
 {
-    public class Expense
+    public class Expense : BaseModel
     {
-        [Key]
-        public int Id { get; set; }
-
         [Required]
         public int TravelId { get; set; }
 
@@ -25,9 +22,9 @@ namespace Trip.Models
         public int PaidBy { get; set; }
 
         [MaxLength(500)]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         [Required]
-        public DateTime Date { get; set; }
+        public DateTime CreationDate { get; set; }
     }
 }

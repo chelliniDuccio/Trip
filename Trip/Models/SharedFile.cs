@@ -3,10 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Trip.Models
 {
-    public class SharedFile
+    public class SharedFile : BaseModel
     {
-        [Key]
-        public int Id { get; set; }
 
         [Required]
         public int TravelId { get; set; }
