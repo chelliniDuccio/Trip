@@ -5,9 +5,9 @@ namespace Trip.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : BaseController<User>
+    public class ExpensesController : BaseController<Expense>
     {
-        public UsersController(AppDbContext context) : base(context)
+        public ExpensesController(AppDbContext context) : base(context)
         {
         }
     }
