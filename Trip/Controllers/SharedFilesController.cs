@@ -6,9 +6,9 @@ namespace Trip.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TravelsController : AuditableController<Travel>
+    public class SharedFilesController : AuditableController<SharedFile>
     {
-        public TravelsController(AppDbContext context) : base(context)
+        public SharedFilesController(AppDbContext context) : base(context)
         {
         }
     }

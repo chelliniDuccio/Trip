@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Trip.Models
+namespace Trip.Models.Extra
 {
     public class BaseModel
     {

@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Trip.Models.Extra;
 
 namespace Trip.Models
 {
-    public class Travel : BaseModel
+    public class Travel : AuditableModel
     {
         [Required]
         [MaxLength(255)]
@@ -14,8 +15,6 @@ namespace Trip.Models
         [Required]
         public DateTime? EndDate { get; set; }
 
-        [MaxLength(255)]
-        public string? StayName { get; set; }
         [MaxLength(255)]
         public string? StayAddress { get; set; }
 

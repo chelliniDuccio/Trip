@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.EntityFrameworkCore;
-using Trip.Models;
+using Trip.Models.Extra;
 
-namespace Trip.Controllers
+namespace Trip.Controllers.Extra
 {
     public class BaseController<T> : ControllerBase where T : BaseModel
     {
-        private readonly AppDbContext _context;
-        private readonly DbSet<T>? _dbSet;
+        protected readonly AppDbContext _context;
+        protected readonly DbSet<T>? _dbSet;
 
         public BaseController(AppDbContext context)
         {
@@ -42,7 +42,7 @@ namespace Trip.Controllers
         }
 
         [HttpPost]
-        public ActionResult<T> Post(T entity)
+        public virtual ActionResult<T> Post(T entity)
         {
             if (_dbSet == null)
                 return NotFound();
@@ -53,7 +53,7 @@ namespace Trip.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(int id, T entity)
+        public virtual ActionResult<T> Put(int id, T entity)
         {
             if (id != entity.Id)
                 return BadRequest();
@@ -64,7 +64,7 @@ namespace Trip.Controllers
             _context.Entry(entity).State = EntityState.Modified;
             _context.SaveChanges();
 
-            return NoContent();
+            return entity;
         }
 
         [HttpDelete("{id}")]

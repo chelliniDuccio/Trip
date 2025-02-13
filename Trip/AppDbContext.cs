@@ -26,11 +26,65 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<User>().HasKey(x => x.Id);
 
         // Configurazione delle relazioni
+        #region Expense
+
+        // Precisione per Amount
+        modelBuilder.Entity<Expense>()
+            .Property(e => e.Amount)
+            .HasColumnType("decimal(18,2)");
+
+        // Relazione con Travel
         modelBuilder.Entity<Expense>()
             .HasOne(e => e.Travel)
-            .WithMany(t => t.Expenses)
+            .WithMany()
             .HasForeignKey(e => e.TravelId)
-            .OnDelete(DeleteBehavior.Cascade); // Se elimini un Travel, elimini anche le sue spese
+            .OnDelete(DeleteBehavior.Cascade); // Se un viaggio viene cancellato, eliminare anche le sue spese
+
+        // Relazioni con User (CreatedBy, UpdatedBy, PaidBy)
+        modelBuilder.Entity<Expense>()
+            .HasOne(e => e.CreatedByUser)
+            .WithMany()
+            .HasForeignKey(e => e.CreatedBy)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Expense>()
+            .HasOne(e => e.UpdatedByUser)
+            .WithMany()
+            .HasForeignKey(e => e.UpdatedBy)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Expense>()
+            .HasOne(e => e.PaidByUser)
+            .WithMany()
+            .HasForeignKey(e => e.PaidBy)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        #endregion
+
+        #region SharedFile
+
+        // Relazione con Travel
+        modelBuilder.Entity<SharedFile>()
+            .HasOne(sf => sf.Travel)
+            .WithMany()
+            .HasForeignKey(sf => sf.TravelId)
+            .OnDelete(DeleteBehavior.Cascade); 
+
+        modelBuilder.Entity<SharedFile>()
+            .HasOne(sf => sf.CreatedByUser)
+            .WithMany()
+            .HasForeignKey(sf => sf.CreatedBy)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<SharedFile>()
+            .HasOne(sf => sf.UpdatedByUser)
+            .WithMany()
+            .HasForeignKey(sf => sf.UpdatedBy)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        #endregion
+
+        #region TravelParticipant
 
         modelBuilder.Entity<TravelParticipant>()
             .HasOne(tp => tp.Travel)
@@ -42,7 +96,16 @@ public class AppDbContext : DbContext
             .HasOne(tp => tp.User)
             .WithMany()
             .HasForeignKey(tp => tp.UserId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // Configurazione della chiave composta per TravelParticipant (TravelId, UserId)
+        modelBuilder.Entity<TravelParticipant>()
+            .HasIndex(tp => new { tp.TravelId, tp.UserId })
+            .IsUnique();
+
+        #endregion
+
+        #region UsefulLink
 
         modelBuilder.Entity<UsefulLink>()
             .HasOne(ul => ul.Travel)
@@ -50,21 +113,18 @@ public class AppDbContext : DbContext
             .HasForeignKey(ul => ul.TravelId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        modelBuilder.Entity<SharedFile>()
-            .HasOne(sf => sf.Travel)
+        modelBuilder.Entity<UsefulLink>()
+            .HasOne(ul => ul.CreatedByUser)
             .WithMany()
-            .HasForeignKey(sf => sf.TravelId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .HasForeignKey(ul => ul.CreatedBy)
+            .OnDelete(DeleteBehavior.Restrict);
 
-        modelBuilder.Entity<SharedFile>()
-            .HasOne(sf => sf.User)
+        modelBuilder.Entity<UsefulLink>()
+            .HasOne(ul => ul.UpdatedByUser)
             .WithMany()
-            .HasForeignKey(sf => sf.UploadedBy)
-            .OnDelete(DeleteBehavior.Cascade);
+            .HasForeignKey(ul => ul.UpdatedBy)
+            .OnDelete(DeleteBehavior.Restrict);
 
-        // Configurazione della chiave composta per TravelParticipant (TravelId, UserId)
-        modelBuilder.Entity<TravelParticipant>()
-            .HasIndex(tp => new { tp.TravelId, tp.UserId })
-            .IsUnique();
+        #endregion
     }
 }

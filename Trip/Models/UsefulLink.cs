@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Trip.Models.Extra;
 
 namespace Trip.Models
 {
-    public class UsefulLink : BaseModel
+    public class UsefulLink : AuditableModel
     {
         [Required]
         public int TravelId { get; set; }

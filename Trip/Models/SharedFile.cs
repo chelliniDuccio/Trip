@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Trip.Models.Extra;
 
 namespace Trip.Models
 {
-    public class SharedFile : BaseModel
+    public class SharedFile : AuditableModel
     {
 
         [Required]
@@ -13,20 +14,11 @@ namespace Trip.Models
         public Travel Travel { get; set; }
 
         [Required]
-        public int UploadedBy { get; set; }
-
-        [ForeignKey("UploadedBy")]
-        public User User { get; set; }
-
-        [Required]
         [MaxLength(255)]
         public string FileName { get; set; }
 
         [Required]
         [MaxLength(1000)]
         public string FileURL { get; set; }
-
-        [Required]
-        public DateTime UploadedAt { get; set; }
     }
 }
