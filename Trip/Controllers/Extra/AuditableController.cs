@@ -16,7 +16,7 @@ namespace Trip.Controllers.Extra
             if (_dbSet == null)
                 return NotFound();
 
-            entity.CreationDate = DateTime.UtcNow;
+            entity.CreationAt = DateTime.UtcNow;
             //entity.CreationDate = userId; :TODO
 
             _dbSet.Add(entity);
@@ -33,7 +33,7 @@ namespace Trip.Controllers.Extra
             if (_dbSet == null)
                 return NotFound();
 
-            entity.UpdateDate = DateTime.UtcNow;
+            entity.UpdatedAt = DateTime.UtcNow;
             //entity.UpdatedBy = userId; :TODO
 
             _context.Entry(entity).State = EntityState.Modified;
