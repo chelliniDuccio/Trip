@@ -26,7 +26,7 @@ namespace Trip.Models
         public int PaidBy { get; set; }
 
         [ForeignKey("PaidBy")]
-        public User PaidByUser { get; set; }
+        public User? PaidByUser { get; set; }
 
         [Required]
         public DateTime PaymentDate { get; set; }

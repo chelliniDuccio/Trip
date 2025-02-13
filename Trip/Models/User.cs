@@ -12,7 +12,7 @@ namespace Trip.Models
         [Required]
         [MaxLength(255)]
         public string Name { get; set; }
-        
+
         [Required]
         [MaxLength(255)]
         public string Surname { get; set; }
@@ -29,6 +29,6 @@ namespace Trip.Models
         public DateTime CreationDate { get; set; }
 
         [Required]
-        public DateTime UpdateDate { get; set; } 
+        public DateTime UpdateDate { get; set; }
     }
 }

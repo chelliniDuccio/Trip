@@ -68,7 +68,7 @@ public class AppDbContext : DbContext
             .HasOne(sf => sf.Travel)
             .WithMany()
             .HasForeignKey(sf => sf.TravelId)
-            .OnDelete(DeleteBehavior.Cascade); 
+            .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<SharedFile>()
             .HasOne(sf => sf.CreatedByUser)
