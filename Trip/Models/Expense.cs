@@ -1,21 +1,22 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Trip.Models.Extra;
 
 namespace Trip.Models
 {
-    public class Expense
+    public class Expense : AuditableModel
     {
-        [Key]
-        public int Id { get; set; }
+        [Required]
+        public decimal Amount { get; set; }
+
+        [MaxLength(500)]
+        public string? Description { get; set; }
 
         [Required]
         public int TravelId { get; set; }
 
         [ForeignKey("TravelId")]
-        public Travel Travel { get; set; }
-
-        [Required]
-        public decimal Amount { get; set; }
+        public Travel? Travel { get; set; }
 
         [Required]
         [MaxLength(10)]
@@ -24,10 +25,10 @@ namespace Trip.Models
         [Required]
         public int PaidBy { get; set; }
 
-        [MaxLength(500)]
-        public string Description { get; set; }
+        [ForeignKey("PaidBy")]
+        public User? PaidByUser { get; set; }
 
         [Required]
-        public DateTime Date { get; set; }
+        public DateTime PaymentDate { get; set; }
     }
 }

@@ -1,76 +1,46 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Trip.Controllers.Extra;
 using Trip.Models;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Trip.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UsersController : BaseController<User>
     {
-        private readonly AppDbContext _context;
-
-        public UsersController(AppDbContext context)
+        public UsersController(AppDbContext context) : base(context)
         {
-            _context = context;
-        }
-
-        [HttpGet]
-        public ActionResult<IEnumerable<User>> GetUsers()
-        {
-            return _context.Users.ToList();
-        }
-
-        [HttpGet("{id}")]
-        public ActionResult<User> GetUser(int id)
-        {
-            var user = _context.Users.Find(id);
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return user;
         }
 
         [HttpPost]
-        public ActionResult<User> PostUser(User user)
+        public override ActionResult<User> Post(User user)
         {
-            _context.Users.Add(user);
-            _context.SaveChanges();
+            if (_dbSet == null)
+                return NotFound();
 
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            user.CreationDate = DateTime.UtcNow;
+
+            _dbSet.Add(user);
+            _context.SaveChanges();
+            return user;
         }
 
         [HttpPut("{id}")]
-        public IActionResult PutUser(int id, User user)
+        public override ActionResult<User> Put(int id, User user)
         {
             if (id != user.Id)
-            {
                 return BadRequest();
-            }
 
-            _context.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-            _context.SaveChanges();
-
-            return NoContent();
-        }
-
-        [HttpDelete("{id}")]
-        public IActionResult DeleteUser(int id)
-        {
-            var user = _context.Users.Find(id);
-            if (user == null)
-            {
+            if (_dbSet == null)
                 return NotFound();
-            }
 
-            _context.Users.Remove(user);
+            user.UpdateDate = DateTime.UtcNow;
+
+            _context.Entry(user).State = EntityState.Modified;
             _context.SaveChanges();
 
-            return NoContent();
+            return user;
         }
     }
 }
