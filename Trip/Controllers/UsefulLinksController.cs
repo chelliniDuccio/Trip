@@ -8,7 +8,7 @@ namespace Trip.Controllers
     [ApiController]
     public class UsefulLinksController : AuditableController<UsefulLink>
     {
-        public UsefulLinksController(AppDbContext context) : base(context)
+        public UsefulLinksController(AppDbContext context, ILogger<BaseController<UsefulLink>> logger) : base(context, logger)
         {
         }
     }

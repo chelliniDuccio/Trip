@@ -8,7 +8,7 @@ namespace Trip.Controllers
     [ApiController]
     public class CountriesController : BaseController<Country>
     {
-        public CountriesController(AppDbContext context) : base(context)
+        public CountriesController(AppDbContext context, ILogger<BaseController<Country>> logger) : base(context, logger)
         {
         }
     }

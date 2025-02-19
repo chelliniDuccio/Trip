@@ -8,7 +8,7 @@ namespace Trip.Controllers
     [ApiController]
     public class TravelsController : AuditableController<Travel>
     {
-        public TravelsController(AppDbContext context) : base(context)
+        public TravelsController(AppDbContext context, ILogger<BaseController<Travel>> logger) : base(context, logger)
         {
         }
     }
