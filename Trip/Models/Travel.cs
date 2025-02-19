@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Trip.Models.Extra;
 
 namespace Trip.Models
@@ -8,6 +9,12 @@ namespace Trip.Models
         [Required]
         [MaxLength(255)]
         public string Name { get; set; }
+
+        [Required]
+        public int CountryId { get; set; }
+
+        [ForeignKey("CountryId")]
+        public Country? Country { get; set; }
 
         [Required]
         public DateTime StartDate { get; set; }

@@ -23,6 +23,9 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="Jsons\" />
+    <Folder Include="Models\Extra\API\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

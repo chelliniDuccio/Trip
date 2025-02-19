@@ -12,6 +12,7 @@ public class AppDbContext : DbContext
     public DbSet<TravelParticipant> TravelParticipants { get; set; }
     public DbSet<UsefulLink> UsefulLinks { get; set; }
     public DbSet<User> Users { get; set; }
+    public DbSet<Country> Countries { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -24,6 +25,7 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<TravelParticipant>().HasKey(x => x.Id);
         modelBuilder.Entity<UsefulLink>().HasKey(x => x.Id);
         modelBuilder.Entity<User>().HasKey(x => x.Id);
+        modelBuilder.Entity<Country>().HasKey(x => x.Id);
 
         // Configurazione delle relazioni
         #region Expense

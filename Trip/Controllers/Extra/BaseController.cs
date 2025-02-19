@@ -18,14 +18,13 @@ namespace Trip.Controllers.Extra
 
         [HttpGet]
         [EnableQuery] // Abilita OData su questa chiamata
-        public ActionResult<IQueryable<T>> Get()
+        public virtual ActionResult<IQueryable<T>> Get()
         {
             if (_dbSet == null)
                 return NotFound();
 
             return Ok(_dbSet);
         }
-
 
         [HttpGet("{id}")]
         public ActionResult<T> Get(int id)
