@@ -8,7 +8,7 @@ namespace Trip.Controllers
     [ApiController]
     public class ExpensesController : AuditableController<Expense>
     {
-        public ExpensesController(AppDbContext context) : base(context)
+        public ExpensesController(AppDbContext context, ILogger<BaseController<Expense>> logger) : base(context, logger)
         {
         }
     }

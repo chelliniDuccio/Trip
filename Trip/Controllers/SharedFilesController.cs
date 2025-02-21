@@ -8,7 +8,7 @@ namespace Trip.Controllers
     [ApiController]
     public class SharedFilesController : AuditableController<SharedFile>
     {
-        public SharedFilesController(AppDbContext context) : base(context)
+        public SharedFilesController(AppDbContext context, ILogger<BaseController<SharedFile>> logger) : base(context, logger)
         {
         }
     }

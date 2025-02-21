@@ -8,7 +8,7 @@ namespace Trip.Controllers
     [ApiController]
     public class TravelParticipantsController : BaseController<TravelParticipant>
     {
-        public TravelParticipantsController(AppDbContext context) : base(context)
+        public TravelParticipantsController(AppDbContext context, ILogger<BaseController<TravelParticipant>> logger) : base(context, logger)
         {
         }
     }
