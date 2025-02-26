@@ -64,7 +64,7 @@ namespace Trip.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Countries");
+                    b.ToTable("Countries", (string)null);
                 });
 
             modelBuilder.Entity("Trip.Models.Expense", b =>
@@ -123,7 +123,7 @@ namespace Trip.Migrations
 
                     b.HasIndex("UpdatedBy");
 
-                    b.ToTable("Expenses");
+                    b.ToTable("Expenses", (string)null);
                 });
 
             modelBuilder.Entity("Trip.Models.SharedFile", b =>
@@ -167,7 +167,7 @@ namespace Trip.Migrations
 
                     b.HasIndex("UpdatedBy");
 
-                    b.ToTable("SharedFiles");
+                    b.ToTable("SharedFiles", (string)null);
                 });
 
             modelBuilder.Entity("Trip.Models.Travel", b =>
@@ -216,7 +216,7 @@ namespace Trip.Migrations
 
                     b.HasIndex("UpdatedBy");
 
-                    b.ToTable("Travels");
+                    b.ToTable("Travels", (string)null);
                 });
 
             modelBuilder.Entity("Trip.Models.TravelParticipant", b =>
@@ -240,7 +240,7 @@ namespace Trip.Migrations
                     b.HasIndex("TravelId", "UserId")
                         .IsUnique();
 
-                    b.ToTable("TravelParticipants");
+                    b.ToTable("TravelParticipants", (string)null);
                 });
 
             modelBuilder.Entity("Trip.Models.UsefulLink", b =>
@@ -289,7 +289,7 @@ namespace Trip.Migrations
 
                     b.HasIndex("UpdatedBy");
 
-                    b.ToTable("UsefulLinks");
+                    b.ToTable("UsefulLinks", (string)null);
                 });
 
             modelBuilder.Entity("Trip.Models.User", b =>
@@ -333,7 +333,7 @@ namespace Trip.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Trip.Models.Expense", b =>

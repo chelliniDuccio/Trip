@@ -27,22 +27,22 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<User>().HasKey(x => x.Id);
         modelBuilder.Entity<Country>().HasKey(x => x.Id);
 
+        // Ignora la proprietà Flag di Country nella mappatura del database
+        modelBuilder.Entity<Country>().Ignore(c => c.Flag);
+
         // Configurazione delle relazioni
         #region Expense
 
-        // Precisione per Amount
         modelBuilder.Entity<Expense>()
             .Property(e => e.Amount)
             .HasColumnType("decimal(18,2)");
 
-        // Relazione con Travel
         modelBuilder.Entity<Expense>()
             .HasOne(e => e.Travel)
             .WithMany()
             .HasForeignKey(e => e.TravelId)
-            .OnDelete(DeleteBehavior.Cascade); // Se un viaggio viene cancellato, eliminare anche le sue spese
+            .OnDelete(DeleteBehavior.Cascade);
 
-        // Relazioni con User (CreatedBy, UpdatedBy, PaidBy)
         modelBuilder.Entity<Expense>()
             .HasOne(e => e.CreatedByUser)
             .WithMany()
@@ -65,7 +65,6 @@ public class AppDbContext : DbContext
 
         #region SharedFile
 
-        // Relazione con Travel
         modelBuilder.Entity<SharedFile>()
             .HasOne(sf => sf.Travel)
             .WithMany()
@@ -100,7 +99,6 @@ public class AppDbContext : DbContext
             .HasForeignKey(tp => tp.UserId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        // Configurazione della chiave composta per TravelParticipant (TravelId, UserId)
         modelBuilder.Entity<TravelParticipant>()
             .HasIndex(tp => new { tp.TravelId, tp.UserId })
             .IsUnique();
