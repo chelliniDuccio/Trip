@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Trip.Enums;
 using Trip.Models.Extra;
 
 namespace Trip.Models
@@ -30,5 +31,6 @@ namespace Trip.Models
 
         [Required]
         public DateTime PaymentDate { get; set; }
+        public CategoryType? Category { get; set; }
     }
 }

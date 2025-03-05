@@ -27,8 +27,12 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<User>().HasKey(x => x.Id);
         modelBuilder.Entity<Country>().HasKey(x => x.Id);
 
-        // Ignora la proprietà Flag di Country nella mappatura del database
         modelBuilder.Entity<Country>().Ignore(c => c.Flag);
+        modelBuilder.Entity<User>().Ignore(u => u.Avatar);
+
+        modelBuilder.Entity<Expense>().Property(e => e.Category).HasConversion<string>(); // Salva l'enum come stringa
+        modelBuilder.Entity<SharedFile>().Property(sf => sf.Category).HasConversion<string>(); // Salva l'enum come stringa
+        modelBuilder.Entity<UsefulLink>().Property(ul => ul.Category).HasConversion<string>(); // Salva l'enum come stringa
 
         // Configurazione delle relazioni
         #region Expense

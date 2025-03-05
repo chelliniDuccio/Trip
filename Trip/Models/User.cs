@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using Trip.Models.Extra;
 
 namespace Trip.Models
@@ -30,5 +31,7 @@ namespace Trip.Models
 
         [Required]
         public DateTime UpdateDate { get; set; }
+
+        public string Avatar => $"{Name.ToUpper()[0]}{Surname.ToUpper()[0]}";
     }
 }

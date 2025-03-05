@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Trip.Enums;
 using Trip.Models.Extra;
 
 namespace Trip.Models
@@ -20,5 +21,7 @@ namespace Trip.Models
         [Required]
         [MaxLength(1000)]
         public string FileURL { get; set; }
+        public CategoryType? Category { get; set; }
+
     }
 }
