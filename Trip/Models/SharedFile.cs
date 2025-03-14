@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Trip.Enums;
+using Trip.Models.Enums;
 using Trip.Models.Extra;
 
 namespace Trip.Models

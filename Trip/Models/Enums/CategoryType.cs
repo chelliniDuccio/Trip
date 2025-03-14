@@ -1,4 +1,4 @@
-﻿namespace Trip.Enums
+﻿namespace Trip.Models.Enums
 {
     public enum CategoryType
     {

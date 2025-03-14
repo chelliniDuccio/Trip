@@ -29,6 +29,7 @@ public class AppDbContext : DbContext
 
         modelBuilder.Entity<Country>().Ignore(c => c.Flag);
         modelBuilder.Entity<User>().Ignore(u => u.Avatar);
+        modelBuilder.Entity<Travel>().Ignore(u => u.StayURL);
 
         modelBuilder.Entity<Expense>().Property(e => e.Category).HasConversion<string>(); // Salva l'enum come stringa
         modelBuilder.Entity<SharedFile>().Property(sf => sf.Category).HasConversion<string>(); // Salva l'enum come stringa

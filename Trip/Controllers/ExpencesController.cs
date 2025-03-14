@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Trip.Controllers.Extra;
 using Trip.Models;
+using Trip.Models.Extra.DTOs;
+using Trip.Services;
+using Trip.Services.Interfaces;
 
 namespace Trip.Controllers
 {
@@ -8,8 +12,25 @@ namespace Trip.Controllers
     [ApiController]
     public class ExpensesController : AuditableController<Expense>
     {
-        public ExpensesController(AppDbContext context, ILogger<BaseController<Expense>> logger) : base(context, logger)
+        private readonly IExpensesService _expensesService;
+        public ExpensesController(AppDbContext context, ILogger<BaseController<Expense>> logger, IExpensesService expensesService) : base(context, logger)
         {
+            _expensesService = expensesService;
+        }
+        [HttpGet("stats/{travelId}")]
+        public async Task<ExpenseStatsDto> GetTravelExpensesStats(int travelId)
+        {
+            try
+            {
+                var data = await _expensesService.GetTravelExpensesStatsAsync(travelId);
+
+                return data;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error retrieving expense statistics for travel ID {TravelId}", travelId);
+                return new ExpenseStatsDto(); // Return an empty DTO or handle the error as needed
+            }
         }
     }
 }

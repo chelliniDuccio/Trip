@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Trip.Enums;
+using Trip.Models.Enums;
 using Trip.Models.Extra;
 
 namespace Trip.Models
@@ -22,6 +22,9 @@ namespace Trip.Models
         [Required]
         [MaxLength(10)]
         public string Currency { get; set; }
+
+        [MaxLength(5)]
+        public string? CurrencySymbol { get; set; }
 
         [Required]
         public int PaidBy { get; set; }

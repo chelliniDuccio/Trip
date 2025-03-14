@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Net;
+using System.Web;
 using Trip.Models.Extra;
 
 namespace Trip.Models
@@ -24,8 +26,16 @@ namespace Trip.Models
 
         [MaxLength(255)]
         public string? StayAddress { get; set; }
+        public string? StayURL => getStayURL();
 
         // Relazione con Expenses
         public ICollection<Expense>? Expenses { get; set; }
+
+        private string getStayURL()
+        {
+            if (!string.IsNullOrEmpty(StayAddress))
+                return $"https://www.google.com/maps/embed/v1/place?key={Constants.googleApiKey}&q={HttpUtility.UrlEncode(StayAddress)}";
+            return null;
+        }
     }
 }

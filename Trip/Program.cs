@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
+using Trip.Services.Interfaces;
+using Trip.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +24,12 @@ builder.Services.AddCors(options =>
 // Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IExpensesService, ExpensesService>();
+
+
+builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
 
