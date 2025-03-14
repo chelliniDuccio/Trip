@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Trip.Controllers.Extra;
 using Trip.Models;
 using Trip.Models.Extra.DTOs;
-using Trip.Services;
 using Trip.Services.Interfaces;
 
 namespace Trip.Controllers

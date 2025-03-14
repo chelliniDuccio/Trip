@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Trip.Models.Extra.DTOs
+﻿namespace Trip.Models.Extra.DTOs
 {
     public class UserDto
     {

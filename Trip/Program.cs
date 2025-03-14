@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
-using Trip.Services.Interfaces;
 using Trip.Services;
+using Trip.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
