@@ -30,5 +30,20 @@ namespace Trip.Controllers
                 return new ExpenseStatsDto(); // Return an empty DTO or handle the error as needed
             }
         }
+
+        [HttpGet("currency-tables")]
+        public async Task<ActionResult<List<CurrencyTableDTO>>> GetCurrencyTables()
+        {
+            try
+            {
+                var data = await _expensesService.GetCurrencyTablesAsync();
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error retrieving currency tables");
+                return StatusCode(500, "Internal server error");
+            }
+        }
     }
 }

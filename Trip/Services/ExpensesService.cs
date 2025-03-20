@@ -20,6 +20,33 @@ namespace Trip.Services
             _mapper = mapper;
         }
 
+        public async Task<List<CurrencyTableDTO>> GetCurrencyTablesAsync()
+        {
+            try
+            {
+                var result = await _context.Countries
+                    .Where(c => c.CurrencySymbol != null)
+                    .GroupBy(c => new { c.Currency, c.CurrencySymbol })
+                    .Select(g => new CurrencyTableDTO
+                    {
+                        Currency = g.Key.Currency,
+                        CurrencySymbol = g.Key.CurrencySymbol,
+                        Count = g.Count()
+                    })
+                    .OrderByDescending(dto => dto.Count)
+                    .ThenBy(dto => dto.Currency)
+                    .ToListAsync();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error retrieving currency tables");
+                throw;
+            }
+        }
+
+
         public async Task<ExpenseStatsDto> GetTravelExpensesStatsAsync(int travelId)
         {
             try

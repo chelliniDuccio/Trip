@@ -5,5 +5,6 @@ namespace Trip.Services.Interfaces
     public interface IExpensesService
     {
         Task<ExpenseStatsDto> GetTravelExpensesStatsAsync(int travelId);
+        Task<List<CurrencyTableDTO>> GetCurrencyTablesAsync();
     }
 }
