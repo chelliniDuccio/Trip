@@ -7,7 +7,6 @@ namespace Trip.Models
 {
     public class SharedFile : AuditableModel
     {
-
         [Required]
         public int TravelId { get; set; }
 
@@ -19,9 +18,9 @@ namespace Trip.Models
         public string FileName { get; set; }
 
         [Required]
-        [MaxLength(1000)]
-        public string FileURL { get; set; }
-        public CategoryType? Category { get; set; }
+        public byte[] FileData { get; set; }  // Qui viene salvato il file come BLOB
 
+        public CategoryType? Category { get; set; }
     }
 }
+
