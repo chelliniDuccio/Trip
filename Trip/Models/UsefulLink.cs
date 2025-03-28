@@ -11,7 +11,7 @@ namespace Trip.Models
         public int TravelId { get; set; }
 
         [ForeignKey("TravelId")]
-        public Travel Travel { get; set; }
+        public Travel? Travel { get; set; }
 
         [Required]
         [MaxLength(255)]

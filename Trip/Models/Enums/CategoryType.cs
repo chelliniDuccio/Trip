@@ -7,6 +7,7 @@
         Accommodation, // Alloggio
         Activities, // Attività e intrattenimento
         Shopping,   // Acquisti e souvenir
+        Fun,        // Divertimento
         Other       // Altro
     }
 }

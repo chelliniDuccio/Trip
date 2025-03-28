@@ -33,7 +33,7 @@ namespace Trip.Models
         private string getStayURL()
         {
             if (!string.IsNullOrEmpty(StayAddress))
-                return $"https://www.google.com/maps/embed/v1/place?key={Constants.googleApiKey}&q={HttpUtility.UrlEncode(StayAddress)}";
+                return $"https://www.google.com/maps/embed/v1/place?key={Constants.GoogleApiKey}&q={HttpUtility.UrlEncode(StayAddress)}";
             return null;
         }
     }
