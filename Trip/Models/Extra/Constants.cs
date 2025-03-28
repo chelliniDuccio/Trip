@@ -12,10 +12,12 @@ namespace Trip.Models.Extra
         {
             config = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
+
+            GoogleApiKey = config["GoogleApiKey"] ?? throw new InvalidOperationException("GoogleApiKey is not configured.");
         }
 
-        public static readonly string GoogleApiKey = config["GoogleApiKey"];
+        public static readonly string GoogleApiKey;
     }
 }
