@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Trip.Controllers.Extra;
 using Trip.Models;
 
 namespace Trip.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TravelsController : AuditableController<Travel>
