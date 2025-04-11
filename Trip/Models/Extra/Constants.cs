@@ -1,8 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.IO;
-
-namespace Trip.Models.Extra
+﻿namespace Trip.Models.Extra
 {
     public static class Constants
     {
