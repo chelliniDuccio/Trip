@@ -1,16 +1,55 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Trip.Controllers.Extra;
 using Trip.Models;
 using Trip.Models.Extra.DTOs;
+using Trip.Services.Interfaces;
 
 namespace Trip.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SharedFilesController : AuditableController<SharedFile>
+    public class SharedFilesController : ControllerBase
     {
-        public SharedFilesController(AppDbContext context, ILogger<BaseController<SharedFile>> logger) : base(context, logger)
+        private readonly ISharedFilesService _sharedFilesService;
+        private readonly ILogger<SharedFilesController> _logger;
+
+        public SharedFilesController(ISharedFilesService sharedFilesService, ILogger<SharedFilesController> logger)
         {
+            _sharedFilesService = sharedFilesService;
+            _logger = logger;
+        }
+
+        [HttpGet()]
+        public async Task<ActionResult<List<SharedFile>>> GetAllFiles()
+        {
+            try
+            {
+                var files = await _sharedFilesService.GetAllEntitiesAsync();
+                return Ok(files);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error retrieving all files");
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<SharedFile>> GetFile(int id)
+        {
+            try
+            {
+                var file = await _sharedFilesService.GetEntityFromIDAsync(id);
+
+                if (file == null)
+                    return NotFound($"File with ID {id} not found.");
+
+                return Ok(file);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error retrieving file with ID {Id}", id);
+                return StatusCode(500, "Internal server error");
+            }
         }
 
         [HttpPost("upload")]
@@ -34,8 +73,7 @@ namespace Trip.Controllers
                     CreationAt = DateTime.UtcNow
                 };
 
-                _context.SharedFiles.Add(sharedFile);
-                await _context.SaveChangesAsync();
+                await _sharedFilesService.CreateEntityAsync(sharedFile);
             }
 
             return Ok("File salvato con successo.");
@@ -44,10 +82,27 @@ namespace Trip.Controllers
         [HttpGet("download/{id}")]
         public async Task<IActionResult> DownloadFile(int id)
         {
-            var file = await _context.SharedFiles.FindAsync(id);
-            if (file == null) return NotFound();
+            var file = await _sharedFilesService.GetEntityFromIDAsync(id);
+
+            if (file == null)
+                return NotFound();
 
             return File(file.FileData, "application/octet-stream", file.FileName);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteFile(int id)
+        {
+            try
+            {
+                await _sharedFilesService.DeleteEntityAsync(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error deleting file with ID {Id}", id);
+                return StatusCode(500, "Internal server error");
+            }
         }
     }
 }

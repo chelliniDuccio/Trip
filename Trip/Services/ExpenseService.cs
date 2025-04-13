@@ -1,23 +1,19 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Trip.Models;
 using Trip.Models.Extra.DTOs;
+using Trip.Services.Extra;
 using Trip.Services.Interfaces;
 
 namespace Trip.Services
 {
-    public class ExpensesService : IExpensesService
+    public class ExpenseService : AuditableBaseService<Expense>, IExpensesService
     {
-        private readonly AppDbContext _context;
-        private readonly ILogger<ExpensesService> _logger;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
-        public ExpensesService(AppDbContext context, ILogger<ExpensesService> logger, IUserService userService, IMapper mapper)
+        public ExpenseService(AppDbContext context) : base(context)
         {
-            _context = context;
-            _logger = logger;
-            _userService = userService;
-            _mapper = mapper;
         }
 
         public async Task<List<CurrencyTableDTO>> GetCurrencyTablesAsync()
@@ -41,7 +37,6 @@ namespace Trip.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error retrieving currency tables");
                 throw;
             }
         }
@@ -67,7 +62,6 @@ namespace Trip.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error retrieving expense statistics for travel ID {TravelId}", travelId);
                 throw;
             }
         }

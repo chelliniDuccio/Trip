@@ -5,7 +5,7 @@ using Trip.Models.Extra;
 
 namespace Trip.Models
 {
-    public class Travel : AuditableModel
+    public class Travel : AuditableBaseModel
     {
         [Required]
         [MaxLength(255)]

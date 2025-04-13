@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Trip.Models;
-namespace Trip.Services
+namespace Trip.Services.Extra
 {
     public class JwtTokenService
     {

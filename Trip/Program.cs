@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Trip.Services;
+using Trip.Services.Extra;
 using Trip.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -53,8 +54,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IExpensesService, ExpensesService>();
-builder.Services.AddScoped<ICountriesService, CoutriesService>();
+builder.Services.AddScoped<IExpensesService, ExpenseService>();
+builder.Services.AddScoped<ICountriesService, CoutrieService>();
 builder.Services.AddScoped<JwtTokenService>();
 
 

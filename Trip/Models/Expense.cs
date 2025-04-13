@@ -5,7 +5,7 @@ using Trip.Models.Extra;
 
 namespace Trip.Models
 {
-    public class Expense : AuditableModel
+    public class Expense : AuditableBaseModel
     {
         [Required]
         public decimal Amount { get; set; }

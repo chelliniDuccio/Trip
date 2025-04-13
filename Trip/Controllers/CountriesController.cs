@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Trip.Controllers.Extra;
+using Microsoft.AspNetCore.OData.Query;
+using Microsoft.EntityFrameworkCore;
 using Trip.Models;
-using Trip.Models.Extra.DTOs;
-using Trip.Services;
 using Trip.Services.Interfaces;
 
 namespace Trip.Controllers
@@ -11,31 +10,47 @@ namespace Trip.Controllers
     [ApiController]
     public class CountriesController : ControllerBase
     {
-        private readonly AppDbContext _context;
         private readonly ILogger<CountriesController> _logger;
         private readonly ICountriesService _countriesService;
-        public CountriesController(AppDbContext context, ILogger<CountriesController> logger, ICountriesService countriesService)
+        public CountriesController(ILogger<CountriesController> logger, ICountriesService countriesService)
         {
-            _context = context;
             _logger = logger;
             _countriesService = countriesService;
         }
 
         [HttpGet()]
-        public async Task<List<Country>> GetAllCountries()
+        [EnableQuery]
+        public async Task<ActionResult<List<Country>>> GetAllCountries()
         {
             try
             {
-                var data = _countriesService.GetAllEntities().ToList();
-
-                return data;
+                var countries = await _countriesService.GetAllEntitiesAsync();
+                return Ok(countries.ToList());
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error retrieving expense statistics for travel ID");
-                return null; // Return an empty DTO or handle the error as needed
+                _logger.LogError(ex, $"Error retrieving data for Country");
+                return StatusCode(500, "An error occurred while retrieving data.");
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Country>> GetCountry(int id)
+        {
+            try
+            {
+                var country = await _countriesService.GetEntityFromIDAsync(id);
+
+                if (country == null)
+                    return NotFound($"Country with ID {id} not found.");
+
+                return Ok(country);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error retrieving data for Country with ID {id}");
+                return StatusCode(500, "An error occurred while retrieving data.");
             }
         }
     }
-
 }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Trip.Models.Extra
 {
-    public class AuditableModel : BaseModel
+    public class AuditableBaseModel : BaseModel
     {
         [Required]
         public int CreatedBy { get; set; }

@@ -5,7 +5,7 @@ using Trip.Models.Extra;
 
 namespace Trip.Models
 {
-    public class SharedFile : AuditableModel
+    public class SharedFile : AuditableBaseModel
     {
         [Required]
         public int TravelId { get; set; }
