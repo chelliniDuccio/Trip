@@ -10,11 +10,13 @@ namespace Trip.Controllers
     public class TravelsController : ControllerBase
     {
         private readonly ITravelService _travelService;
+        private readonly ITravelPartecipantService _travelPartecipantService;
         private readonly ILogger<TravelsController> _logger;
 
-        public TravelsController(ITravelService travelService, ILogger<TravelsController> logger)
+        public TravelsController(ITravelService travelService, ILogger<TravelsController> logger, ITravelPartecipantService travelPartecipantService)
         {
             _travelService = travelService;
+            _travelPartecipantService = travelPartecipantService;
             _logger = logger;
         }
 
@@ -103,6 +105,25 @@ namespace Trip.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"Error deleting travel with ID {id}");
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+        [HttpGet("user/{userId}")]
+        public async Task<ActionResult<List<Travel>>> GetTravelsByUserId(int userId)
+        {
+            try
+            {
+                var travels = await _travelPartecipantService.GetTravelsFromUserAsync(userId);
+
+                if (travels == null || !travels.Any())
+                    return NotFound($"No travels found for user with ID {userId}.");
+
+                return Ok(travels);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error retrieving travels for user with ID {userId}");
                 return StatusCode(500, "Internal server error");
             }
         }

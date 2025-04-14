@@ -5,5 +5,6 @@ namespace Trip.Services.Interfaces
 {
     public interface ITravelService : IAuditableBaseService<Travel>
     {
+        Task<List<Travel>> GetTravelsByIdsAsync(List<int> travelsId);
     }
 }

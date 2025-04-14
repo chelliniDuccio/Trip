@@ -24,15 +24,11 @@ namespace Trip.Services
 
         public async Task<List<User?>> GetUsersByIdsAsync(List<int>? userId)
         {
-            var result = new List<User?>();
+            if (userId == null || !userId.Any())
+                return new List<User?>();
 
-            foreach (var id in userId)
-            {
-                var user = await GetUserByIdAsync(id);
-                result.Add(user);
-            }
-
-            return result;
+            var users = await Task.WhenAll(userId.Select(GetUserByIdAsync));
+            return users.ToList();
         }
     }
 }

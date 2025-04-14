@@ -9,5 +9,14 @@ namespace Trip.Services
         public TravelService(AppDbContext context) : base(context)
         {
         }
+
+        public async Task<List<Travel>> GetTravelsByIdsAsync(List<int> travelIds)
+        {
+            if (travelIds == null || !travelIds.Any())
+                return new List<Travel>();
+
+            var users = await Task.WhenAll(travelIds.Select(GetEntityFromIDAsync));
+            return users.ToList();
+        }
     }
 }

@@ -31,7 +31,7 @@ namespace Trip.Models
         [MaxLength(10)]
         public string? CurrencySymbol { get; set; }
 
-        [JsonPropertyName("Flag")] // Forza la serializzazione
+        [JsonPropertyName("flag")] // Forza la serializzazione
         public string Flag => $"https://flagcdn.com/{Iso.ToLower()}.svg";
     }
 }
