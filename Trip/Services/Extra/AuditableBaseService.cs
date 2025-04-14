@@ -3,7 +3,7 @@ using Trip.Services.Interfaces.Extra;
 
 namespace Trip.Services.Extra
 {
-    public class AuditableBaseService<T> : BaseService<T>, IAuditableBaseService<T>  where T : AuditableBaseModel
+    public class AuditableBaseService<T> : BaseService<T>, IAuditableBaseService<T> where T : AuditableBaseModel
     {
         public AuditableBaseService(AppDbContext context) : base(context)
         {

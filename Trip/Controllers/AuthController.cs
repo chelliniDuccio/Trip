@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Trip.Models.Extra;
-using Trip.Services.Extra;
+using Trip.Services.Interfaces.Extra;
 
 namespace Trip.Controllers
 {
@@ -8,10 +8,10 @@ namespace Trip.Controllers
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly JwtTokenService _jwtTokenService;
+        private readonly IJwtTokenService _jwtTokenService;
         private readonly AppDbContext _context;
 
-        public AuthController(JwtTokenService jwtTokenService, AppDbContext context)
+        public AuthController(IJwtTokenService jwtTokenService, AppDbContext context)
         {
             _jwtTokenService = jwtTokenService;
             _context = context;

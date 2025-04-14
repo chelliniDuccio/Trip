@@ -4,9 +4,9 @@ using Trip.Services.Interfaces;
 
 namespace Trip.Services
 {
-    public class CoutrieService : BaseService<Country>, ICountriesService
+    public class CountryService : BaseService<Country>, ICountriesService
     {
-        public CoutrieService(AppDbContext context) : base(context)
+        public CountryService(AppDbContext context) : base(context)
         {
         }
     }

@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Trip.Services;
 using Trip.Services.Extra;
 using Trip.Services.Interfaces;
+using Trip.Services.Interfaces.Extra;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,15 +53,22 @@ builder.Services.AddAuthentication(options =>
 // Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IExpensesService, ExpenseService>();
-builder.Services.AddScoped<ICountriesService, CoutrieService>();
-builder.Services.AddScoped<JwtTokenService>();
-
-
 builder.Services.AddAutoMapper(typeof(Program));
 
+#region map services
+
+builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+builder.Services.AddScoped<ICountriesService, CountryService>();
+builder.Services.AddScoped<IExpensesService, ExpenseService>();
+builder.Services.AddScoped<ISharedFilesService, SharedFileService>();
+builder.Services.AddScoped<ITravelPartecipantService, TravelPartecipantService>();
+builder.Services.AddScoped<ITravelService, TravelService>();
+builder.Services.AddScoped<IUsefulLinkService, UsefulLinkService>();
+builder.Services.AddScoped<IUserService, UserService>();
+
+#endregion
+
+# region app
 var app = builder.Build();
 
 // Middleware
@@ -74,9 +82,7 @@ app.UseHttpsRedirection();
 
 // CORS prima di Authorization
 app.UseCors("AllowAll");
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
+#endregion

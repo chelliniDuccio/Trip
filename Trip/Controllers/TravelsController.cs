@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Trip.Models;
-using Trip.Services;
 using Trip.Services.Interfaces;
 
 namespace Trip.Controllers

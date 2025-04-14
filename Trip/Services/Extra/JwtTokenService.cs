@@ -3,9 +3,10 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using Trip.Models;
+using Trip.Services.Interfaces.Extra;
 namespace Trip.Services.Extra
 {
-    public class JwtTokenService
+    public class JwtTokenService : IJwtTokenService
     {
         private readonly IConfiguration _configuration;
 

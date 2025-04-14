@@ -62,7 +62,7 @@ namespace Trip.Controllers
                 if (expense == null)
                     return BadRequest("Expense cannot be null.");
 
-                var createdExpense =  await _expensesService.CreateEntityAsync(expense);
+                var createdExpense = await _expensesService.CreateEntityAsync(expense);
                 return CreatedAtAction(nameof(GetExpense), new { id = createdExpense.Id }, createdExpense);
             }
             catch (Exception ex)

@@ -83,7 +83,7 @@ namespace Trip.Controllers
 
                 if (existingTravelParticipant == null)
                     return NotFound($"Travel participant with ID {id} not found.");
-                
+
                 await _travelPartecipantService.UpdateEntityAsync(travelParticipant);
                 return NoContent();
             }
@@ -103,7 +103,7 @@ namespace Trip.Controllers
 
                 if (travelParticipant == null)
                     return NotFound($"Travel participant with ID {id} not found.");
-                
+
                 await _travelPartecipantService.DeleteEntityAsync(id);
                 return NoContent();
             }
