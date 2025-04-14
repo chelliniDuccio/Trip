@@ -12,8 +12,10 @@ namespace Trip.Services
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
-        public ExpenseService(AppDbContext context) : base(context)
+        public ExpenseService(AppDbContext context, IUserService userService, IMapper mapper) : base(context)
         {
+            _userService = userService;
+            _mapper = mapper;
         }
 
         public async Task<List<CurrencyTableDTO>> GetCurrencyTablesAsync()

@@ -1,17 +1,13 @@
 ﻿using Trip.Models;
+using Trip.Services.Extra;
 using Trip.Services.Interfaces;
 
 namespace Trip.Services
 {
-    public class UserService : IUserService
+    public class UserService : BaseService<User>, IUserService
     {
-        private readonly AppDbContext _context;
-        private readonly ILogger<UserService> _logger;
-
-        public UserService(AppDbContext context, ILogger<UserService> logger)
+        public UserService(AppDbContext context) : base(context)
         {
-            _context = context;
-            _logger = logger;
         }
 
         public async Task<User?> GetUserByIdAsync(int userId)
@@ -22,12 +18,11 @@ namespace Trip.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error retrieving user with ID {UserId}", userId);
                 throw;
             }
         }
 
-        public async Task<List<User?>> GetUsersByIdsAsync(List<int> userId)
+        public async Task<List<User?>> GetUsersByIdsAsync(List<int>? userId)
         {
             var result = new List<User?>();
 

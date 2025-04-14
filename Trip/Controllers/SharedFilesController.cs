@@ -87,7 +87,7 @@ namespace Trip.Controllers
             if (file == null)
                 return NotFound();
 
-            return File(file.FileData, "application/octet-stream", file.FileName);
+            return File(file.FileData, "application/pdf", file.FileName);
         }
 
         [HttpDelete("{id}")]

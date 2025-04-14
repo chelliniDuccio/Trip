@@ -4,7 +4,7 @@ using Trip.Services.Interfaces;
 
 namespace Trip.Services
 {
-    public class TravelService : BaseService<Travel>, ITravelService
+    public class TravelService : AuditableBaseService<Travel>, ITravelService
     {
         public TravelService(AppDbContext context) : base(context)
         {
