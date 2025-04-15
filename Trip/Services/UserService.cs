@@ -39,5 +39,12 @@ namespace Trip.Services
             var users = await Task.WhenAll(userId.Select(GetUserByIdAsync));
             return users.ToList();
         }
+
+        public string HashPassword(string password)
+        {
+            using var sha256 = System.Security.Cryptography.SHA256.Create();
+            var hashedBytes = sha256.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            return Convert.ToBase64String(hashedBytes);
+        }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Trip.Models.Extra;
 using Trip.Services.Interfaces;
 using Trip.Services.Interfaces.Extra;
@@ -12,13 +11,11 @@ namespace Trip.Controllers
     {
         private readonly IJwtTokenService _jwtTokenService;
         private readonly IUserService _userService;
-        private readonly AppDbContext _context;
 
-        public AuthController(IJwtTokenService jwtTokenService, AppDbContext context, IUserService userService)
+        public AuthController(IJwtTokenService jwtTokenService, IUserService userService)
         {
             _jwtTokenService = jwtTokenService;
             _userService = userService;
-            _context = context;
         }
 
         [HttpPost("login")]
@@ -33,7 +30,7 @@ namespace Trip.Controllers
                 return Unauthorized(new { message = "Invalid email." });
 
             // Validate the password (#TODO passwords hashing)
-            if (!string.Equals(request.Password, user.Password))
+            if (!string.Equals(_userService.HashPassword(request.Password), user.Password))
                 return Unauthorized(new { message = "Invalid password." });
 
             var token = _jwtTokenService.GenerateToken(user);

@@ -8,5 +8,7 @@ namespace Trip.Services.Interfaces
         Task<User?> GetUserByIdAsync(int userId);
         Task<List<User?>> GetUsersByIdsAsync(List<int>? userId);
         Task<User?> GetUserByUsernameOrEmailAsync(string username);
+        string HashPassword(string password);
+
     }
 }
