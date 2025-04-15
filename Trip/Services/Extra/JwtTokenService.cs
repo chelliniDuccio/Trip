@@ -24,6 +24,7 @@ namespace Trip.Services.Extra
             {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()), // Convert Id to string
                 new Claim(ClaimTypes.Name, user.Username), // Add username as a claim
+                new Claim("id", user.Id.ToString()), // Add userId as a claim
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 

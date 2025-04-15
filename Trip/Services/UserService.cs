@@ -1,4 +1,5 @@
-﻿using Trip.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Trip.Models;
 using Trip.Services.Extra;
 using Trip.Services.Interfaces;
 
@@ -20,6 +21,14 @@ namespace Trip.Services
             {
                 throw;
             }
+        }
+
+        public async Task<User?> GetUserByUsernameOrEmailAsync(string username)
+        {
+            if (string.IsNullOrEmpty(username))
+                throw new ArgumentNullException(nameof(username));
+
+            return await _context.Users.FirstOrDefaultAsync(x => x.Username == username || x.Email == username);
         }
 
         public async Task<List<User?>> GetUsersByIdsAsync(List<int>? userId)
