@@ -30,17 +30,16 @@ namespace Trip.Services
             }
         }
 
-        public async Task<List<User>> GetUsersFromTravelAsync(int travelId)
+        public Task<List<User>> GetUsersFromTravel(int travelId)
         {
             try
             {
                 var travelsFromUser = GetAllEntitiesAsync().Result.Where(x => x.TravelId == travelId).Select(x => x.User);
 
-                return travelsFromUser.ToList();
+                return travelsFromUser.ToListAsync();
             }
             catch (Exception)
             {
-
                 throw;
             }
         }

@@ -6,6 +6,6 @@ namespace Trip.Services.Interfaces
     public interface ITravelPartecipantService : IBaseService<TravelParticipant>
     {
         Task<List<Travel>> GetTravelsFromUserAsync(int userId);
-        Task<List<User>> GetUsersFromTravelAsync(int travelId);
+        Task<List<User>> GetUsersFromTravel(int travelId);
     }
 }
